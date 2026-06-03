@@ -1,0 +1,66 @@
+[
+  {
+    "rule_id": "rule_1",
+    "created_at": "2026-04-30T18:56:18.301930Z",
+    "status": "planned",
+    "execution_spec": {
+      "mode": "dry_run",
+      "router_backend": "openwrt",
+      "strategy": "dns_blocklist_with_schedule",
+      "target": {
+        "hostname": "WecimsPC",
+        "interface": "br-lan",
+        "ipv6": "fd14:8852:547::f54/128",
+        "duid": "000100012b3a7aea7c57585b60da",
+        "iaid": "4c0a0027"
+      },
+      "policy": {
+        "domains": [
+          "youtube.com"
+        ],
+        "days": [
+          "weekdays"
+        ],
+        "start_time": "19:00",
+        "end_time": "21:00"
+      },
+      "notes": [
+        "Current implementation is dry-run only.",
+        "DNS blocking is suitable for a first prototype but may not fully block YouTube in all apps/devices.",
+        "A later version can add firewall/nftables enforcement or DNS interception."
+      ]
+    }
+  },
+  {
+    "rule_id": "rule_2",
+    "created_at": "2026-05-01T10:53:00.097115Z",
+    "status": "planned",
+    "execution_spec": {
+      "mode": "dry_run",
+      "router_backend": "openwrt",
+      "strategy": "dns_blocklist_with_schedule",
+      "target": {
+        "hostname": "WecimsPC",
+        "interface": "br-lan",
+        "ipv6": "fd14:8852:547::f54/128",
+        "duid": "000100012b3a7aea7c57585b60da",
+        "iaid": "4c0a0027"
+      },
+      "policy": {
+        "domains": [
+          "youtube.com"
+        ],
+        "days": [
+          "weekdays"
+        ],
+        "start_time": "19:00",
+        "end_time": "21:00"
+      },
+      "notes": [
+        "Current implementation is dry-run only.",
+        "DNS blocking is suitable for a first prototype but may not fully block YouTube in all apps/devices.",
+        "A later version can add firewall/nftables enforcement or DNS interception."
+      ]
+    }
+  }
+]

@@ -1,0 +1,101 @@
+{
+  "rule_id": "24eb503d-a0d1-44dd-b0b0-6902f5f8b4b9",
+  "created_at": "2026-05-20T11:45:55Z",
+  "enabled": true,
+  "exec_spec": {
+    "operation": "create_rule",
+    "rule_type": "scheduled_domain_block",
+    "target": {
+      "hostname": "WecimsPC",
+      "interface": null,
+      "ip": "fd14:8852:547::f54",
+      "duid": "000100012b3a7aea7c57585b60da",
+      "iaid": null
+    },
+    "match": {
+      "domains": [
+        "youtube.com"
+      ],
+      "service": null
+    },
+    "schedule": {
+      "days": [
+        "weekdays"
+      ],
+      "start_time": "19:00",
+      "end_time": "21:00"
+    },
+    "policy": {
+      "action": "block",
+      "requires_confirmation": true
+    },
+    "source_plan_type": "dns_or_firewall_block",
+    "dry_run_supported": true,
+    "backend_gate": {
+      "config_backend_ready": true,
+      "dry_run_backend_ready": true,
+      "real_apply_ready": true,
+      "original_rule_type": "scheduled_domain_block",
+      "effective_rule_type": "scheduled_domain_block",
+      "fallback_mode": null,
+      "warning": null
+    }
+  },
+  "writer_plan": {
+    "mode": "scheduled_domain_block_fw4_dnsmasq",
+    "hostname": "WecimsPC",
+    "src_ip": "fd14:8852:547::f54",
+    "family": "ipv6",
+    "domains": [
+      "youtube.com"
+    ],
+    "start_time": "19:00",
+    "end_time": "21:00",
+    "weekdays": "Mon Tue Wed Thu Fri",
+    "nftset_v4": "llm_wecimspc_d4",
+    "nftset_v6": "llm_wecimspc_d6",
+    "dhcp_nftset_section": "llm_wecimspc_dnsset",
+    "commands": [
+      "uci add firewall nftset",
+      "uci set firewall.@nftset[-1].name='llm_wecimspc_d4'",
+      "uci set firewall.@nftset[-1].table='fw4'",
+      "uci set firewall.@nftset[-1].family='ipv4'",
+      "uci set firewall.@nftset[-1].match='dest_ip'",
+      "uci set firewall.@nftset[-1].enabled='1'",
+      "uci add firewall nftset",
+      "uci set firewall.@nftset[-1].name='llm_wecimspc_d6'",
+      "uci set firewall.@nftset[-1].table='fw4'",
+      "uci set firewall.@nftset[-1].family='ipv6'",
+      "uci set firewall.@nftset[-1].match='dest_ip'",
+      "uci set firewall.@nftset[-1].enabled='1'",
+      "uci add dhcp nftset",
+      "uci set dhcp.@nftset[-1].name='llm_wecimspc_dnsset'",
+      "uci add_list dhcp.@nftset[-1].name='llm_wecimspc_d4'",
+      "uci add_list dhcp.@nftset[-1].name='llm_wecimspc_d6'",
+      "uci set dhcp.@nftset[-1].table='fw4'",
+      "uci add_list dhcp.@nftset[-1].domain='/youtube.com/'",
+      "uci add firewall rule",
+      "uci set firewall.@rule[-1].name='llm_block_wecimspc_d6'",
+      "uci set firewall.@rule[-1].src='lan'",
+      "uci set firewall.@rule[-1].src_ip='fd14:8852:547::f54'",
+      "uci set firewall.@rule[-1].dest='wan'",
+      "uci set firewall.@rule[-1].family='ipv6'",
+      "uci set firewall.@rule[-1].ipset='llm_wecimspc_d6 dest'",
+      "uci set firewall.@rule[-1].proto='all'",
+      "uci set firewall.@rule[-1].target='REJECT'",
+      "uci set firewall.@rule[-1].start_time='19:00'",
+      "uci set firewall.@rule[-1].stop_time='21:00'",
+      "uci set firewall.@rule[-1].weekdays='Mon Tue Wed Thu Fri'",
+      "uci commit dhcp",
+      "uci commit firewall",
+      "/etc/init.d/dnsmasq restart",
+      "/etc/init.d/firewall restart"
+    ],
+    "capability_status": {
+      "dry_run_valid": true,
+      "real_apply_ready": true,
+      "reason": "Ready for live apply."
+    }
+  },
+  "mode": "apply"
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Router Policy Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none">
+          <path d="M10 39C10 23.536 22.536 11 38 11H54V27C54 42.464 41.464 55 26 55H10V39Z" stroke="currentColor" stroke-width="5"/>
+          <path d="M19 35H45" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M19 44H34" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        
+        <h1>Router Policy Studio</h1>
+      </div>
+    </div>
+    <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
+      <span class="theme-icon">◐</span>
+    </button>
+  </header>
+
+  <main id="main" class="layout">
+    <section class="hero card glass">
+      <div>
+        <p class="eyebrow">Natural language network control</p>
+        <h2>Turn plain-English requests into router actions.</h2>
+        <p class="lede">Preview the plan, inspect the resolved device and app, then apply it live from a clean browser interface.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-tile">
+          <span>Supported apps</span>
+          <strong id="supportedAppsCount">—</strong>
+        </div>
+        <div class="stat-tile">
+          <span>Devices discovered</span>
+          <strong id="deviceCount">—</strong>
+        </div>
+        <div class="stat-tile">
+          <span>QoS ready</span>
+          <strong id="qosReady">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="composer-grid">
+      <section class="card panel compose-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Request</p>
+            <h3>Create a policy</h3>
+          </div>
+          <span id="routerPill" class="pill muted">Checking router</span>
+        </div>
+
+        <label class="field-label" for="promptInput">Describe what you want</label>
+        <textarea id="promptInput" rows="6" placeholder="Example: Prioritize Netflix on WecimsPC every Saturday and Sunday from 19:00 to 21:00."></textarea>
+
+        <div class="quick-actions">
+          <button class="chip" data-prompt="Prioritize Netflix on WecimsPC every Saturday and Sunday from 19:00 to 21:00.">Netflix evenings</button>
+          <button class="chip" data-prompt="Prioritize Zoom on my laptop during work hours on weekdays.">Zoom weekdays</button>
+          <button class="chip" data-prompt="Block YouTube on the kids iPad after 21:00 every day.">YouTube bedtime</button>
+        </div>
+
+        <div class="actions-row">
+          <button id="previewBtn" class="btn btn-primary">Preview plan</button>
+          <button id="applyBtn" class="btn btn-secondary" disabled>Apply from browser</button>
+        </div>
+
+        <label class="checkbox-row">
+          <input id="applyLiveToggle" type="checkbox" />
+          <span>Apply live when backend is ready</span>
+        </label>
+      </section>
+
+      <section class="card panel sidebar-panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="eyebrow">Backend</p>
+            <h3>Environment</h3>
+          </div>
+        </div>
+        <div id="bootstrapSummary" class="stack"></div>
+      </section>
+    </section>
+
+    <section class="results-grid">
+      <section class="card panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="eyebrow">Preview</p>
+            <h3>Execution summary</h3>
+          </div>
+        </div>
+        <div id="previewSummary" class="empty-state">No plan yet. Generate a preview to inspect intent, target device, app resolution, and backend readiness.</div>
+      </section>
+
+      <section class="card panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="eyebrow">Result</p>
+            <h3>Apply outcome</h3>
+          </div>
+        </div>
+        <div id="applySummary" class="empty-state">Applied results will appear here, including verification, snapshots, and rollback metadata.</div>
+      </section>
+    </section>
+
+    <section class="card panel logs-panel">
+      <div class="panel-head compact">
+        <div>
+          <p class="eyebrow">Details</p>
+          <h3>Structured output</h3>
+        </div>
+      </div>
+      <div class="tab-row">
+        <button class="tab active" data-tab="previewJson">Preview JSON</button>
+        <button class="tab" data-tab="applyJson">Apply JSON</button>
+      </div>
+      <pre id="previewJson" class="json-view active"></pre>
+      <pre id="applyJson" class="json-view"></pre>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>
